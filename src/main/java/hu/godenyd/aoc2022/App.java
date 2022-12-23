@@ -33,6 +33,7 @@ public class App {
 
         return reflections.getSubTypesOf(Day.class)
                 .stream()
+                .sorted((c1, c2) -> c1.getSimpleName().compareTo(c2.getSimpleName()))
                 .collect(Collectors.toList());
     }
 }
