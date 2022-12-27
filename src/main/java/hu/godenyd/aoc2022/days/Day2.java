@@ -40,6 +40,7 @@ public class Day2 extends Day {
         System.out.println(secondSum);
     }
 
+    // I hate myself...
     private int getValueFrom3Lines(String line1, String line2, String line3) {
 
         for (int i = 0; i < line1.length(); i++) {
