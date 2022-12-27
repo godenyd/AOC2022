@@ -1,6 +1,5 @@
 package hu.godenyd.aoc2022.days;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,11 +11,15 @@ public class Day4 extends Day {
     @Override
     public void doTask() {
         List<Deque<Character>> stacks = new LinkedList<Deque<Character>>();
+        List<Deque<Character>> stackCopy = new LinkedList<Deque<Character>>();
 
+        
         for (int i = 0; i < 9; i++) {
             stacks.add(new LinkedList<Character>());
+            stackCopy.add(new LinkedList<Character>());
         }
 
+        
         String line = "";
         final int firstCratePosition = 1;
         final int crateDistance = 4;
@@ -32,6 +35,7 @@ public class Day4 extends Day {
 
                 if (crate != ' ') {
                     stacks.get(j).addLast(crate);
+                    stackCopy.get(j).addLast(crate);
                 }
 
                 currentCratePos += crateDistance;
@@ -68,30 +72,31 @@ public class Day4 extends Day {
                 toStack.push(fromStack.pop());
             }
 
-            // Deque<Character> moved = new LinkedList<>();
+            // second task
+            fromStack = stackCopy.get(from - 1);
+            toStack = stackCopy.get(to - 1);
 
-            // for (int i = 0; i < count; i++) {
-            //     moved.push(fromStack.pop());
-            // }
+            Deque<Character> moved = new LinkedList<>();
 
-            // System.out.println("moved:");
-            // for (int i = 0; i < moved.size(); i++) {
-            //     System.out.println("[" + ((LinkedList)moved).get(moved.size() - 1- i) + "]");
-            // }
+            for (int i = 0; i < count; i++) {
+                moved.push(fromStack.pop());
+            }
 
-            // for (int i = 0; i < count; i++) {
-            //     toStack.push(moved.pop());
-            // }            
+            System.out.println("moved:");
+            for (int i = 0; i < moved.size(); i++) {
+                System.out.println("[" + ((LinkedList)moved).get(moved.size() - 1- i) + "]");
+            }
+
+            for (int i = 0; i < count; i++) {
+                toStack.push(moved.pop());
+            }            
         }
 
+        System.out.println("First task stacks:");
         printStacks(stacks);
+        System.out.println("Second task stacks:");
+        printStacks(stackCopy);
 
-        // String topRow = "";
-        // for (int i = 0; i < stacks.size(); i++) {
-        //     topRow = topRow.concat(String.valueOf(stacks.get(i).pop()));
-        // }
-
-        // System.out.println(topRow);
 
     }
 
